@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-extern imgCvtGrayIntToDouble(int height, int width, int* src2dArray, int* dest2dArray);
+extern imgCvtGrayIntToDouble(int height, int width, int* src2dArray, double* dest2dArray);
 
 int main(){
     int height, width;
