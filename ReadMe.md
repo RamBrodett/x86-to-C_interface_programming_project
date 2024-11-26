@@ -36,8 +36,9 @@ The performance results show that the matrix conversion scales well with the inc
 The conversion process is efficient and well within the acceptable range for typical image processing applications. The verification of each matrix is successful, confirming that the conversion logic is consistent and produces correct results across different matrix sizes.
 
 ### Performance Snapshot:
-
-
+![Performance snapshot](snapshots/performance.png)
 ### Correctness Snapshot:
+![Performance snapshot](snapshots/correctness.png)
+
 
 
