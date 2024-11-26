@@ -12,6 +12,7 @@ void print_header_test();
 void convert();
 void imgCvtGrayIntToDouble_C(int height, int width, int* matrix, double* matrixD_C);
 void performance_test(int height, int width);
+void convertW_correctness();
 
 int main(){
     srand(time(NULL));  
@@ -20,7 +21,7 @@ int main(){
     while (keepRunning){
         print_choices();
         printf("Enter choice: ");
-        while (scanf("%d", &choice)!=1 || choice < 1 || choice > 3){
+        while (scanf("%d", &choice)!=1 || choice < 1 || choice > 4){
             printf("Invalid input. Please enter a number from 1-3 only.\n");
             printf("Enter choice: ");
             scanf("%d", &choice);
@@ -43,6 +44,12 @@ int main(){
             system("cls");
             break;
         case 3:
+            system("cls");
+            convertW_correctness();
+            system_pause();
+            system("cls");
+            break;
+        case 4:
             keepRunning = false;
             break;
         }
@@ -73,7 +80,8 @@ void convert(){
 
     imgCvtGrayIntToDouble(height, width, src2dArray, dest2dArray);
 
-    print_header();
+    char str[] = "ASM";
+    print_header(str);
     for (int i = 0; i < height; i++){
         for (int j = 0; j < width; j++){
             printf("%.2f ", dest2dArray[i*width+j]);
@@ -141,6 +149,57 @@ void performance_test(int height, int width){
     free(matrixD_C);
 }
 
+void convertW_correctness(){
+    int height, width;
+
+    printf("Input height and width, separated by a space: ");
+    scanf("%d %d", &height, &width);
+
+    int totalElements = height * width;
+
+    int* src2dArray = (int*)malloc(height*width*sizeof(int));
+    double* dest2dArray = (double*)malloc(height*width*sizeof(double));
+    double* dest2dArray_C = (double*)malloc(height*width*sizeof(double));
+
+    printf("Enter %d integers range[1-255] for the matrix (row by row and separated by space):\n", totalElements);
+    for(int i = 0; i < totalElements; i++){
+        if(scanf("%d", &src2dArray[i]) != 1 || src2dArray[i] < 1 || src2dArray[i] > 255){
+            printf("Invalid input. Please integer from 1-255 only.\n");
+            free(src2dArray);
+            free(dest2dArray);
+            free(dest2dArray_C);
+            return;
+        }
+    }
+
+    imgCvtGrayIntToDouble(height, width, src2dArray, dest2dArray);
+    imgCvtGrayIntToDouble_C(height, width, src2dArray, dest2dArray_C);
+
+    char str[] = "C";
+    print_header(str);
+    for (int i = 0; i < height; i++){
+        for (int j = 0; j < width; j++){
+            printf("%.2f ", dest2dArray[i*width+j]);
+        }
+        printf("\n");
+        
+    }
+
+    char str_1[]="ASM";
+    print_header(str_1);
+    for (int i = 0; i < height; i++){
+        for (int j = 0; j < width; j++){
+            printf("%.2f ", dest2dArray[i*width+j]);
+        }
+        printf("\n");
+        
+    }
+
+    free(src2dArray);
+    free(dest2dArray);
+    free(dest2dArray_C);
+}
+
 void imgCvtGrayIntToDouble_C(int height, int width, int* matrix, double* matrixD_C){
     for(int i=0; i < height; i++){
         for(int j=0; j < width; j++){
@@ -155,15 +214,16 @@ void print_choices(){
     printf("-------------------------------------------------\n");
     printf("      [1] Convert Image                          \n");
     printf("      [2] Performance Test                       \n");
-    printf("      [3] Exit                                   \n");
+    printf("      [3] Convert Image w Correctness Check      \n");
+    printf("      [4] Exit                                   \n");
     printf("-------------------------------------------------\n");
 }
 
-void print_header(){
+void print_header(char* str){
     printf("\n\n");
-    printf("-------------------------------------------------\n");
-    printf("  Image Conversion from Gray Int to Gray Double  \n");
-    printf("-------------------------------------------------\n");
+    printf("--------------------------------------------------------\n");
+    printf("  Image Conversion from Gray Int to Gray Double of %s \n", str);
+    printf("--------------------------------------------------------\n");
 }
 
 void print_header_test(){
