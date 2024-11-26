@@ -14,16 +14,16 @@ imgCvtGrayIntToDouble:
     
     row_loop:
         cmp r10, rcx
-        jge done
+        je done
         mov r12, r10
-        imul r12, rcx
+        imul r12, rdx
         lea r13, [r8 + r12*4]
         lea r14, [r9 + r12*8]
 
         xor r11, r11
         column_loop:
             cmp r11, rdx
-            jge next_row
+            je next_row
             mov eax, dword[r13 + r11*4]
             cvtsi2sd xmm0, rax
 
