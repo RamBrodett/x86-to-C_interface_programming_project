@@ -84,7 +84,7 @@ void convert(){
     print_header(str);
     for (int i = 0; i < height; i++){
         for (int j = 0; j < width; j++){
-            printf("%.2f ", dest2dArray[i*width+j]);
+            printf("%.4f ", dest2dArray[i*width+j]);
         }
         printf("\n");
         
@@ -179,7 +179,7 @@ void convertW_correctness(){
     print_header(str);
     for (int i = 0; i < height; i++){
         for (int j = 0; j < width; j++){
-            printf("%.2f ", dest2dArray[i*width+j]);
+            printf("%.4f ", dest2dArray[i*width+j]);
         }
         printf("\n");
         
@@ -189,7 +189,7 @@ void convertW_correctness(){
     print_header(str_1);
     for (int i = 0; i < height; i++){
         for (int j = 0; j < width; j++){
-            printf("%.2f ", dest2dArray[i*width+j]);
+            printf("%.4f ", dest2dArray[i*width+j]);
         }
         printf("\n");
         
